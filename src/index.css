@@ -1,0 +1,43 @@
+.padded {
+  margin: 100px calc(((100% - 128px) / 2));
+}
+
+.m20 {
+    margin: 20px;
+}
+
+.upload__container {
+    border-style: dashed;
+    border-top: dashed !important;
+    border-width: 1px;
+}
+
+.App {
+    margin: auto;
+    width: 80%;
+    margin-top: 10px;
+}
+
+.upload__content {
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+    height: 300px;
+}
+
+.ui.card>:first-child, .ui.cards>.card>.upload {
+    border-top: dashed !important;
+    border-width: 1px !important;
+}
+
+.icon-image {
+  font-size: 80px !important;
+}
+
+.pb10 {
+    padding-bottom: 10px;
+}
+
+.stretch-width {
+    width: 100% !important;
+}
