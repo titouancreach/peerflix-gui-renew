@@ -6,4 +6,4 @@ Compile Reason to JS
 (add -w to recompile on change)
 
 Bundle javascript for electron
-  --> yarn run parcel --targer="electron" --public-url="./" ./src/index.html
+  --> yarn run parcel --target="electron" --public-url="./" ./src/index.html
