@@ -1,2 +1,1 @@
-[@bs.module]
-external strip: string => string = "ansi-stripper";
+[@bs.module] external strip : string => string = "ansi-stripper";

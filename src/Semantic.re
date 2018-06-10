@@ -65,10 +65,20 @@ module List = {
   };
   [@bs.module "semantic-ui-react"]
   external list : ReasonReact.reactClass = "List";
-  let make = (~divided=false, ~verticalAlign="middle", ~style=ReactDOMRe.Style.make(), children) =>
+  let make =
+      (
+        ~divided=false,
+        ~verticalAlign="middle",
+        ~style=ReactDOMRe.Style.make(),
+        children
+      ) =>
     ReasonReact.wrapJsForReason(
       ~reactClass=list,
-      ~props={"divided": divided, "verticalAlign": verticalAlign, "style": style},
+      ~props={
+        "divided": divided,
+        "verticalAlign": verticalAlign,
+        "style": style
+      },
       children
     );
 };

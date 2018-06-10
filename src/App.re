@@ -1,6 +1,9 @@
 open Belt.Result;
 
-type state = {fileUrl: option(string), fileList: list((string, string))};
+type state = {
+  fileUrl: option(string),
+  fileList: list((string, string))
+};
 
 type action =
   | Upload(option(string))
@@ -15,24 +18,22 @@ let make = (_) => {
     switch action {
     | Upload(url) =>
       ReasonReact.UpdateWithSideEffects(
-        {
-            ...state,
-            fileUrl: url
-        },
+        {...state, fileUrl: url},
         (
           ({send}) =>
             switch url {
             | None => ()
-            | Some(url) => Peerflix.getFileList(url, result =>
+            | Some(url) =>
+              Peerflix.getFileList(url, result =>
                 switch result {
                 | Ok(s) => send(FileList(s))
                 | Error(err) => Js.log("Err(" ++ err ++ ")")
                 }
-              );
+              )
             }
         )
       )
-    | FileList(fileList) => ReasonReact.Update({...state, fileList: fileList})
+    | FileList(fileList) => ReasonReact.Update({...state, fileList})
     },
   render: ({send, state}) =>
     <div className="App">
