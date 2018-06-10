@@ -4,3 +4,5 @@ node_modules/
 /dist
 /.merlin
 /src/*.js
+yarn-error.log
+.bsb.lock
