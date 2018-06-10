@@ -23,6 +23,6 @@ let make = (_) => {
 
   render: ({send, state}) => 
     <div className="App"> 
-        <UploadBox onUpload={x => send(Upload(x))} path={state.fileUrl} /> 
+        <UploadBox onUpload=(x => send(Upload(x))) path=(state.fileUrl) /> 
     </div>
 };
