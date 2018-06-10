@@ -1,14 +1,16 @@
 let component = ReasonReact.statelessComponent("UploadBox");
 
-let onClick = (_) =>
-  Electron.showOpenDialog([|OpenFile|], [|("torrent", [|"torrent"|])|])
-  |> ignore;
+let onClick = (upload, (_)) => {
+  let file = Electron.showOpenDialog([|OpenFile|], [|("torrent", [|"torrent"|])|]);
+  upload(file);
+};
 
-let make = (_) => {
+
+let make = (~onUpload, _) => {
   ...component,
   render: (_) =>
     <Semantic.Card className="stretch-width">
-      <div className="m20 upload__container" onClick>
+      <div className="m20 upload__container" onClick={onClick(onUpload)}>
         <div className="upload__content">
           <div>
             <div>

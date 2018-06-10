@@ -16,13 +16,17 @@ let filter_to_js = (filter) => {
 };
 
 [@bs.module "electron"] [@bs.scope ("remote", "dialog")]
-external rawShowOpenDialog: {. "properties": array(string), "filters": filterType} => 'a = "showOpenDialog";
+external rawShowOpenDialog: {. "properties": array(string), "filters": filterType} => array(string) = "showOpenDialog";
 
 let showOpenDialog = (dialogFlags, filters) => {
   let props = Array.map(flag_to_string, dialogFlags);
   let fltrs = Array.map(filter_to_js, filters);
-  Js.log(fltrs);
-  rawShowOpenDialog({"properties": props, "filters": fltrs});
+  let file = rawShowOpenDialog({"properties": props, "filters": fltrs});
+
+  switch (file) {
+  | [||] => None
+  | [|x, _|] => Some(x)
+  };
 };
 
 
