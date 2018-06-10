@@ -1,8 +1,8 @@
 let component = ReasonReact.statelessComponent("UploadBox");
 
-let onClick = (upload, (_)) => {
-  let file = Electron.showOpenDialog([|OpenFile|], [|("torrent", [|"torrent"|])|]);
-  upload(file);
+let onClick = (onUpload, (_)) => {
+  let optionFile = Electron.showOpenDialog([|OpenFile|], [|("torrent", [|"torrent"|])|]);
+  onUpload(optionFile);
 };
 
 

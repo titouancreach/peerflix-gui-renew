@@ -15,17 +15,20 @@ let filter_to_js = (filter) => {
   {"name": name, "extensions": exts}
 };
 
-[@bs.module "electron"] [@bs.scope ("remote", "dialog")]
-external rawShowOpenDialog: {. "properties": array(string), "filters": filterType} => array(string) = "showOpenDialog";
+[@bs.module "electron"] [@bs.scope ("remote", "dialog")] [@bs.return nullable]
+external rawShowOpenDialog: {. "properties": array(string), "filters": filterType} => option(array(string)) = "showOpenDialog";
 
 let showOpenDialog = (dialogFlags, filters) => {
   let props = Array.map(flag_to_string, dialogFlags);
   let fltrs = Array.map(filter_to_js, filters);
-  let file = rawShowOpenDialog({"properties": props, "filters": fltrs});
+  let optionFile = rawShowOpenDialog({"properties": props, "filters": fltrs});
 
-  switch (file) {
-  | [||] => None
-  | [|x, _|] => Some(x)
+  switch (optionFile) {
+  | Some(files) => switch (Array.to_list(files)) {
+    | [] => None
+    | [x, ..._] => Some(x)
+    }
+  | None => None
   };
 };
 

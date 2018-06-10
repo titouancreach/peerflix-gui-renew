@@ -11,7 +11,13 @@ let make = (_) => {
 
   reducer: (action, _) =>
     switch action {
-    | Upload(url) => ReasonReact.Update({fileUrl: url})
+    | Upload(url) => {
+            switch (url) {
+            | Some(url) => Js.log("Some(" ++ url ++ ")")
+            | None => Js.log("None")
+            } |> ignore;
+            ReasonReact.Update({fileUrl: url});
+        }
     },
 
 
