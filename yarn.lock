@@ -35,6 +35,10 @@ ansi-regex@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-3.0.0.tgz#ed0317c322064f79466c02966bddb605ab37d998"
 
+ansi-stripper@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/ansi-stripper/-/ansi-stripper-0.0.1.tgz#471d689d2cff2b7a90b99490e24814f3371b49ac"
+
 ansi-styles@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-2.2.1.tgz#b432dd3358b634cf75e1e4664368240533c1ddbe"

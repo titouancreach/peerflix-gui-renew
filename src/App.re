@@ -1,28 +1,42 @@
+open Belt.Result;
 
-type state = {fileUrl: option(string)};
+type state = {fileUrl: option(string), fileList: list((string, string))};
 
 type action =
-  | Upload(option(string));
+  | Upload(option(string))
+  | FileList(list((string, string)));
 
 let component = ReasonReact.reducerComponent("App");
+
 let make = (_) => {
   ...component,
-  initialState: () => {fileUrl: None},
-
-  reducer: (action, _) =>
+  initialState: () => {fileUrl: None, fileList: []},
+  reducer: (action, state) =>
     switch action {
-    | Upload(url) => {
-            switch (url) {
-            | Some(url) => Js.log("Some(" ++ url ++ ")")
-            | None => Js.log("None")
-            } |> ignore;
-            ReasonReact.Update({fileUrl: url});
-        }
+    | Upload(url) =>
+      ReasonReact.UpdateWithSideEffects(
+        {
+            ...state,
+            fileUrl: url
+        },
+        (
+          ({send}) =>
+            switch url {
+            | None => ()
+            | Some(url) => Peerflix.getFileList(url, result =>
+                switch result {
+                | Ok(s) => send(FileList(s))
+                | Error(err) => Js.log("Err(" ++ err ++ ")")
+                }
+              );
+            }
+        )
+      )
+    | FileList(fileList) => ReasonReact.Update({...state, fileList: fileList})
     },
-
-
-  render: ({send, state}) => 
-    <div className="App"> 
-        <UploadBox onUpload=(x => send(Upload(x))) path=(state.fileUrl) /> 
+  render: ({send, state}) =>
+    <div className="App">
+      <UploadBox onUpload=(x => send(Upload(x))) path=state.fileUrl />
+      <FileList fileList=state.fileList />
     </div>
 };
